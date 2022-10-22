@@ -24,8 +24,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    const uint offsetsAndSize[36];
-    char stringdata0[330];
+    const uint offsetsAndSize[26];
+    char stringdata0[227];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(offsetof(qt_meta_stringdata_MainWindow_t, stringdata0) + ofs), len 
@@ -38,24 +38,17 @@ QT_MOC_LITERAL(26, 14), // "Mouse_Released"
 QT_MOC_LITERAL(41, 17), // "showMousePosition"
 QT_MOC_LITERAL(59, 7), // "QPoint&"
 QT_MOC_LITERAL(67, 3), // "pos"
-QT_MOC_LITERAL(71, 20), // "on_show_axes_clicked"
-QT_MOC_LITERAL(92, 15), // "on_Draw_clicked"
-QT_MOC_LITERAL(108, 21), // "on_set_point1_clicked"
-QT_MOC_LITERAL(130, 21), // "on_set_point2_clicked"
-QT_MOC_LITERAL(152, 21), // "on_pushButton_clicked"
-QT_MOC_LITERAL(174, 25), // "on_pushButtonCopy_clicked"
-QT_MOC_LITERAL(200, 26), // "on_pushButtonPaste_clicked"
-QT_MOC_LITERAL(227, 24), // "on_pushButtonNew_clicked"
-QT_MOC_LITERAL(252, 25), // "on_pushButtonOpen_clicked"
-QT_MOC_LITERAL(278, 25), // "on_pushButtonSave_clicked"
-QT_MOC_LITERAL(304, 25) // "on_pushButtonFind_clicked"
+QT_MOC_LITERAL(71, 25), // "on_pushButtonCopy_clicked"
+QT_MOC_LITERAL(97, 26), // "on_pushButtonPaste_clicked"
+QT_MOC_LITERAL(124, 24), // "on_pushButtonNew_clicked"
+QT_MOC_LITERAL(149, 25), // "on_pushButtonOpen_clicked"
+QT_MOC_LITERAL(175, 25), // "on_pushButtonSave_clicked"
+QT_MOC_LITERAL(201, 25) // "on_pushButtonFind_clicked"
 
     },
     "MainWindow\0Mouse_Pressed\0\0Mouse_Released\0"
     "showMousePosition\0QPoint&\0pos\0"
-    "on_show_axes_clicked\0on_Draw_clicked\0"
-    "on_set_point1_clicked\0on_set_point2_clicked\0"
-    "on_pushButton_clicked\0on_pushButtonCopy_clicked\0"
+    "on_pushButtonCopy_clicked\0"
     "on_pushButtonPaste_clicked\0"
     "on_pushButtonNew_clicked\0"
     "on_pushButtonOpen_clicked\0"
@@ -70,7 +63,7 @@ static const uint qt_meta_data_MainWindow[] = {
       10,       // revision
        0,       // classname
        0,    0, // classinfo
-      14,   14, // methods
+       9,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -78,30 +71,20 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   98,    2, 0x0a,    1 /* Public */,
-       3,    0,   99,    2, 0x0a,    2 /* Public */,
-       4,    1,  100,    2, 0x0a,    3 /* Public */,
-       7,    0,  103,    2, 0x08,    5 /* Private */,
-       8,    0,  104,    2, 0x08,    6 /* Private */,
-       9,    0,  105,    2, 0x08,    7 /* Private */,
-      10,    0,  106,    2, 0x08,    8 /* Private */,
-      11,    0,  107,    2, 0x08,    9 /* Private */,
-      12,    0,  108,    2, 0x08,   10 /* Private */,
-      13,    0,  109,    2, 0x08,   11 /* Private */,
-      14,    0,  110,    2, 0x08,   12 /* Private */,
-      15,    0,  111,    2, 0x08,   13 /* Private */,
-      16,    0,  112,    2, 0x08,   14 /* Private */,
-      17,    0,  113,    2, 0x08,   15 /* Private */,
+       1,    0,   68,    2, 0x0a,    1 /* Public */,
+       3,    0,   69,    2, 0x0a,    2 /* Public */,
+       4,    1,   70,    2, 0x0a,    3 /* Public */,
+       7,    0,   73,    2, 0x08,    5 /* Private */,
+       8,    0,   74,    2, 0x08,    6 /* Private */,
+       9,    0,   75,    2, 0x08,    7 /* Private */,
+      10,    0,   76,    2, 0x08,    8 /* Private */,
+      11,    0,   77,    2, 0x08,    9 /* Private */,
+      12,    0,   78,    2, 0x08,   10 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 5,    6,
-    QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -121,17 +104,12 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 0: _t->Mouse_Pressed(); break;
         case 1: _t->Mouse_Released(); break;
         case 2: _t->showMousePosition((*reinterpret_cast< std::add_pointer_t<QPoint&>>(_a[1]))); break;
-        case 3: _t->on_show_axes_clicked(); break;
-        case 4: _t->on_Draw_clicked(); break;
-        case 5: _t->on_set_point1_clicked(); break;
-        case 6: _t->on_set_point2_clicked(); break;
-        case 7: _t->on_pushButton_clicked(); break;
-        case 8: _t->on_pushButtonCopy_clicked(); break;
-        case 9: _t->on_pushButtonPaste_clicked(); break;
-        case 10: _t->on_pushButtonNew_clicked(); break;
-        case 11: _t->on_pushButtonOpen_clicked(); break;
-        case 12: _t->on_pushButtonSave_clicked(); break;
-        case 13: _t->on_pushButtonFind_clicked(); break;
+        case 3: _t->on_pushButtonCopy_clicked(); break;
+        case 4: _t->on_pushButtonPaste_clicked(); break;
+        case 5: _t->on_pushButtonNew_clicked(); break;
+        case 6: _t->on_pushButtonOpen_clicked(); break;
+        case 7: _t->on_pushButtonSave_clicked(); break;
+        case 8: _t->on_pushButtonFind_clicked(); break;
         default: ;
         }
     }
@@ -145,7 +123,7 @@ const QMetaObject MainWindow::staticMetaObject = { {
     nullptr,
 qt_incomplete_metaTypeArray<qt_meta_stringdata_MainWindow_t
 , QtPrivate::TypeAndForceComplete<MainWindow, std::true_type>
-, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QPoint &, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>
+, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QPoint &, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>
 
 
 >,
@@ -172,13 +150,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 14)
+        if (_id < 9)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 14;
+        _id -= 9;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 14)
+        if (_id < 9)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 14;
+        _id -= 9;
     }
     return _id;
 }

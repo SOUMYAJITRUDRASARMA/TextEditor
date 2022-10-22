@@ -24,16 +24,6 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_show_axes_clicked();
-
-    void on_Draw_clicked();
-
-    void on_set_point1_clicked();
-
-    void on_set_point2_clicked();
-
-    void on_pushButton_clicked();
-
     void on_pushButtonCopy_clicked();
 
     void on_pushButtonPaste_clicked();
@@ -54,7 +44,7 @@ private:
     NodeLine *winCurYNodeLine;
     int cursorX1, cursorY1, cursorX2, cursorY2;
 
-    bool isSelectionOn, isControlModeOn, isDisplayResultModeOn;;
+    bool isSelectionOn, isControlModeOn, isDisplayResultModeOn, isShiftOn;
     int selX1, selY1, selX2, selY2;
     Node *selCursorLoc1, *selCursorLoc2;
     NodeLine *selLine1, *selLine2;

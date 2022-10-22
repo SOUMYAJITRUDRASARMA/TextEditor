@@ -42,7 +42,7 @@ MainWindow::MainWindow(QWidget *parent) :
     winLimX = ui->frame->width() / Font::charX, winLimY = ui->frame->width() / Font::charY;
     winCurX = winCurY = 0;
     winCurYNodeLine = tfData.headLine;
-    isSelectionOn = isControlModeOn = isDisplayResultModeOn = false;
+    isSelectionOn = isControlModeOn = isDisplayResultModeOn = isShiftOn = false;
     ui->spinBoxTabSize->setMinimum(1);
     ui->spinBoxTabSize->setValue(4);
 
@@ -65,12 +65,6 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-void MainWindow::point(int x,int y, QRgb color)
-{
-    img.setPixel(x, y, color);
-    // ui->frame->setPixmap(QPixmap::fromImage(img));
 }
 
 
@@ -192,62 +186,7 @@ void MainWindow::Mouse_Released()
     }
 }
 
-void MainWindow::on_show_axes_clicked()
-{
-    if(ui->show_axes->isChecked())
-    {
-        ui->x_axis->show();
-        ui->y_axis->show();
-    }
-    else{
-        ui->x_axis->hide();
-        ui->y_axis->hide();
-    }
-}
-void MainWindow::on_set_point1_clicked()
-{
-    if(ui->draw_line->isChecked()){
-        p1.setX(ui->frame->x);
-        p1.setY(ui->frame->y);
-    }
-}
-void MainWindow::on_set_point2_clicked()
-{
-    if(ui->draw_line->isChecked()){
-        p2.setX(ui->frame->x);
-        p2.setY(ui->frame->y);
-    }
-}
-void MainWindow::on_Draw_clicked()
-{
-    int r0=ui->circle_radius->value();
-    QPainter painter(&img);
-    QPen pen;
-    pen.setWidth(1);
-    pen.setColor(Qt::red);
-    if(ui->draw_circle->isChecked()){
-        p1.setX(ui->frame->x);
-        p1.setY(ui->frame->y);
-        painter.setPen(pen);
-        painter.drawEllipse(p1,r0,r0);
-    }
-    if(ui->draw_line->isChecked()){
-        painter.setPen(Qt::red);
-        painter.drawLine(p1,p2);
-    }
-    ui->frame->setPixmap(QPixmap::fromImage(img));
-}
-void MainWindow::on_pushButton_clicked()
-{
-    for(int j=0;j<img.height();j++)
-    {
-        for(int i=0;i<img.width();i++)
-        {
-            img.setPixel(i,j,qRgb(0,0,0));
-        }
-    }
-    ui->frame->setPixmap(QPixmap::fromImage(img));
-}
+
 
 void MainWindow::drawCharacter(int xPos, int yPos, char ch, Node *nRef, bool isSelected)
 {
@@ -341,6 +280,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
             updateScreen();
         }
+        // else if(key == Qt::Key_F) on_pushButtonFind_clicked();
 
         return;
     }
@@ -350,7 +290,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     {
         isDisplayResultModeOn = false;
         if(isSelectionOn) tfData.deleteRange(selX1, selY1, selCursorLoc1, selLine1, selCursorLoc2), isSelectionOn = false;
-        tfData.insertChar(key - Qt::Key_A + 'a');
+        tfData.insertChar(key - Qt::Key_A + (((GetKeyState(VK_CAPITAL) == 1) ^ isShiftOn)? 'A': 'a'));
     }
 
     else if(key >= Qt::Key_0 && key <= Qt::Key_9)
@@ -361,6 +301,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     }
 
     else if(key == Qt::Key_Control){ cout << "CTRL Pressed ..." << endl; isControlModeOn = true; return; }
+    else if(key == Qt::Key_Shift){ cout << "SHIFT Pressed ..." << endl; isShiftOn = true; return; }
     else if(key == Qt::Key_Space)
     {
         isDisplayResultModeOn = false;
@@ -532,6 +473,7 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
     int key = event->key();
 
     if(key == Qt::Key_Control) isControlModeOn = false;
+    else if(key == Qt::Key_Shift) isShiftOn = false;
 }
 
 void MainWindow::wheelEvent(QWheelEvent *event)
@@ -648,7 +590,9 @@ void MainWindow::on_pushButtonFind_clicked()
 {
     // Getting finding string ...
     bool okClicked;
+    QWidget::releaseKeyboard();
     QString key = QInputDialog::getText(this, "Find", "Enter word to find:", QLineEdit::Normal, "", &okClicked);
+    QWidget::grabKeyboard();
 
     if(!okClicked) return;
     if(key.isEmpty()){ QMessageBox mb; mb.setText("Cannot find empty string !!!"); mb.exec(); return; }
@@ -661,8 +605,45 @@ void MainWindow::on_pushButtonFind_clicked()
     Node *cLoc = tfData.headLine->headChar;
     NodeLine *line = tfData.headLine;
 
+    int i = 0, j = 0, nKey = key.size(), indexCharNode = 0, cnt = 0;
+    char ch;
+    bool first = true;
     QVector<int> dpLps;
     QString ans;
+    QVector<Node *> charNodeRef(nKey);
+
+    // BUILDING  KEY \0 STRING
+
+    for(QChar qCh: key)
+    {
+        ch = qCh.toLatin1();
+        ans.push_back(ch);
+
+        if(first)
+        {
+            dpLps.push_back(j = 0);
+            first = false; i++; continue;
+        }
+
+        while(j && ans[i] != ans[j]) j = dpLps[j - 1];
+        if(ans[i] == ans[j]) dpLps.push_back(++j);
+        else dpLps.push_back(j = 0);
+
+        i++;
+    }
+
+    // .............................................................................................................
+
+    ch = '\0';
+    ans.push_back(ch);
+    while(j && ans[i] != ans[j]) j = dpLps[j - 1];
+    if(ans[i] == ans[j]) dpLps.push_back(++j);
+    else dpLps.push_back(j = 0);
+
+    i++;
+
+    // .............................................................................................................
+
     do
     {
         if(cLoc->next) cLoc = cLoc->next;
@@ -671,8 +652,28 @@ void MainWindow::on_pushButtonFind_clicked()
 
         if(cLoc->data == BEG_OF_LINE_CHAR) ans.push_back('\n');
         else ans.push_back(cLoc->data);
+
+        charNodeRef[(indexCharNode + 1) % nKey] = cLoc, indexCharNode = (indexCharNode + 1) % nKey;
+
+        while(j && ans[i] != ans[j]) j = dpLps[j - 1];
+        if(ans[i] == ans[j]) dpLps.push_back(++j);
+        else dpLps.push_back(j = 0);
+
+        if(dpLps[i] == nKey)
+        {
+            for(Node *n: charNodeRef) setResultCharNodes.insert(n);
+            cnt++;
+            dpLps[i] = j = 0;
+        }
+
+        i++;
     }
     while(true);
+
+    QMessageBox mb; mb.setText(QString::number(cnt) + " matches found ..."); mb.exec();
+
+//    cout << ans.toStdString() << endl << endl << "   --- DONE ---" << endl << endl;
+//    for(int e: dpLps) cout << e << ", ";  cout << endl;
 
     updateScreen();
 }
