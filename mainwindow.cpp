@@ -75,6 +75,9 @@ void MainWindow::showMousePosition(QPoint &pos)
 
 void MainWindow::Mouse_Pressed()
 {
+    if(ui->frame->x < 0) ui->frame->x = 0; else if(ui->frame->x >= ui->frame->width()) ui->frame->x = ui->frame->width() - 1;
+    if(ui->frame->y < 0) ui->frame->y = 0; else if(ui->frame->y >= ui->frame->height()) ui->frame->y = ui->frame->height() - 1;
+
     cursorX1 = (ui->frame->x + Font::charX / 2) / Font::charX;
     cursorY1 = ui->frame->y / Font::charY;
 
@@ -107,6 +110,9 @@ void MainWindow::Mouse_Pressed()
 
 void MainWindow::Mouse_Released()
 {
+    if(ui->frame->relX < 0) ui->frame->relX = 0; else if(ui->frame->relX >= ui->frame->width()) ui->frame->relX = ui->frame->width() - 1;
+    if(ui->frame->relY < 0) ui->frame->relY = 0; else if(ui->frame->relY >= ui->frame->height()) ui->frame->relY = ui->frame->height() - 1;
+
     cursorX2 = (ui->frame->relX + Font::charX / 2) / Font::charX;
     cursorY2 = ui->frame->relY / Font::charY;
 
@@ -565,7 +571,6 @@ void MainWindow::on_pushButtonOpen_clicked()
     mb.exec();
 }
 
-
 void MainWindow::on_pushButtonSave_clicked()
 {
     QString filePath = QFileDialog::getSaveFileName(this, "Save File", defaultDirectory);
@@ -584,7 +589,6 @@ void MainWindow::on_pushButtonSave_clicked()
     mb.setText("File has been saved ...");
     mb.exec();
 }
-
 
 void MainWindow::on_pushButtonFind_clicked()
 {
